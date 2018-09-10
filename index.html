@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do with Vue.js</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container" id="app">
+        <section class="section">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        To-Do app
+                    </h1>
+                    <h2 class="subtitle">
+                        Plan your work
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <div class="panel">
+            <section class="section panel-heading">
+                <div class="field has-addons">
+                    <p class="control is-expanded">
+                        <!--<label for="todoTitle hide">Write your things</label>-->
+                        <input class="newTodoTitle input" type="text" name="todoTitle" v-model="newtodo" v-on:keyup.enter="add()" autofocus>
+                    </p>
+                    <p class="control">
+                        <input class="todoSubmit button is-primary" type="submit" value="+" v-on:click="add()" v-on:keyup.enter="add()">
+                    </p>
+                </div>
+
+            </section>
+            <ul class="todoList">
+                <li class="panel-block" v-for="todo in todos">
+                    <div>
+                        <input type="checkbox" class="checkbox" v-on:change="todo.completed = !todo.completed"> {{todo.id+1}} | <span :class="{done: todo.completed}">{{todo.title}}</span>
+                    </div>
+                    <div>
+                        <button class="delete" v-on:click="remove(todo)"></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <section class="footer">
+            App builded using Vue.js 2.0
+        </section>
+        <section class="footer">
+            <button class="button is-small" v-on:click="toggleView()"><span v-show="helper">Hide</span><span v-show="!helper">Show</span> &nbsp;helper</button>
+            <ul v-show="helper">
+                <span class="content is-small">showing todos array</span>
+                <li v-for="todo in todos" class="content is-small">{{todo}}</li>
+            </ul>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="todo.js"></script>
+</body>
+
+</html>
